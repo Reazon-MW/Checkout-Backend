@@ -24,7 +24,13 @@ namespace CheckoutProj
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            string con = "Server=(localdb)\\mssqllocaldb;Database=Checkout;Trusted_Connection=True;";
+            string con = "Server=tcp:checkoutproj.database.windows.net,1433;" +
+                "Initial Catalog=CheckoutDB;" +
+                "Persist Security Info=False;" +
+                "User ID=superuser;Password=51345134Gg;" +
+                "MultipleActiveResultSets=False;Encrypt=True;" +
+                "TrustServerCertificate=False;" +
+                "Connection Timeout=30;";
             services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(con));
             services.AddControllers();
             services.AddMvcCore().AddNewtonsoftJson();

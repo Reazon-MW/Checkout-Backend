@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>Checkout</RootNamespace>
+    <UserSecretsId>59e30809-0a65-4eb8-971d-53d992c5b566</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
