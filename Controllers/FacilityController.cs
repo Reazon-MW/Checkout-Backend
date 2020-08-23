@@ -354,5 +354,11 @@ namespace CheckoutProj.Controllers
                 return new ForbidResult();
             }
         }
+
+        [HttpGet("~/api/diseases")]
+        public ActionResult<ICollection<Disease>> GetDiseases() {
+            return Ok(DiseaseRep.List);
+        }
+
     }
 }
