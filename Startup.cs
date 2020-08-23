@@ -31,6 +31,7 @@ namespace CheckoutProj
                 "MultipleActiveResultSets=False;Encrypt=True;" +
                 "TrustServerCertificate=False;" +
                 "Connection Timeout=30;";
+            services.AddCors();
             services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(con));
             services.AddControllers();
             services.AddMvcCore().AddNewtonsoftJson();
@@ -61,9 +62,14 @@ namespace CheckoutProj
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseRouting();
-            app.UseCors(builder => builder.AllowAnyOrigin());
+            app.UseCors(
+                builder => builder
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
 
+
+            app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
 
