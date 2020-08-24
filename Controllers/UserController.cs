@@ -11,6 +11,7 @@ using BC = BCrypt.Net.BCrypt;
 using System.Transactions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.CodeAnalysis;
+using System;
 
 namespace CheckoutProj.Controllers
 {
@@ -171,6 +172,7 @@ namespace CheckoutProj.Controllers
                 PlaceID = place.PlaceID,
                 DiseaseID = diseaseID,
                 Result = result,
+                Time = DateTime.Now,
                 IsRevieved = false
             };
             UserRep.AddCheckout(user, checkout);

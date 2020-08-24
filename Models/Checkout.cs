@@ -11,17 +11,18 @@ namespace CheckoutProj.Models
     {
         [Key]
         public int ChechoutID { get; set; }
+        //[JsonIgnore]
         public int UserID { get; set; }
 
         public virtual User User { get; set; }
 
         public int PlaceID { get; set; }
 
-        [JsonIgnore]
+        //[JsonIgnore]
         public virtual Place Place { get; set; }
         public int DiseaseID { get; set; }
 
-        [JsonIgnore]
+        //[JsonIgnore]
         public virtual Disease Disease { get; set; }
         public DateTime Time { get; set; }
         public bool Result { get; set; }
