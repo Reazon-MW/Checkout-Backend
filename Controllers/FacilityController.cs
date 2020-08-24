@@ -45,6 +45,14 @@ namespace CheckoutProj.Controllers
         }
 
         [HttpGet]
+        [Route("~/api/facilities/{facilityID}")]
+        public ActionResult<Facility> GetFacility(int facilityID)
+        {
+            Facility facility = FacilityRep.Find(facilityID);
+            return Ok(facility);
+        }
+
+        [HttpGet]
         public ActionResult<ICollection<Facility>> GetAdminFacilities()
         {
             User user = UserRep.FindByEmail(User.Identity.Name);

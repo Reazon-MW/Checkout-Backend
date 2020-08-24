@@ -62,14 +62,15 @@ namespace CheckoutProj
                 app.UseDeveloperExceptionPage();
             }
 
+
+            app.UseRouting();
+
             app.UseCors(
                 builder => builder
                 .AllowAnyOrigin()
                 .AllowAnyMethod()
                 .AllowAnyHeader());
 
-
-            app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
 
