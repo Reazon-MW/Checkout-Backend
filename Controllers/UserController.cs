@@ -12,6 +12,7 @@ using System.Transactions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.CodeAnalysis;
 using System;
+using System.Dynamic;
 
 namespace CheckoutProj.Controllers
 {
@@ -88,7 +89,16 @@ namespace CheckoutProj.Controllers
         public ActionResult<ICollection<Work>> GetWorks()
         {
             User user = UserRep.FindByEmail(User.Identity.Name);
-            return new ObjectResult(user.WorkingIn);
+            List<ExpandoObject> list = new List<ExpandoObject>();
+            foreach(Work work in user.WorkingIn)
+            {
+                dynamic WorkInFacility = new ExpandoObject();
+                WorkInFacility.Work = work;
+                WorkInFacility.FacilityName = work.Facility.Name;
+                WorkInFacility.FacilityType = work.Facility.Type;
+                list.Add(WorkInFacility);
+            }
+            return new JsonResult(list);
         }
 
         [HttpDelete("works/{workID}")]
