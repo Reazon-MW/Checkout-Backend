@@ -353,7 +353,7 @@ namespace CheckoutProj.Controllers
             return Ok(unreviewedCheckouts);
         }
 
-        [HttpPut("review_checkout/{checkoutID}")]
+        [HttpPut("~/review_checkout/{checkoutID}")]
         public ActionResult ReviewCheckout(int checkoutID)
         {
             User user = UserRep.FindByEmail(User.Identity.Name);
