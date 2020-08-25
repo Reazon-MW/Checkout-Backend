@@ -317,6 +317,10 @@ namespace CheckoutProj.Controllers
         {
             User user = UserRep.FindByEmail(User.Identity.Name);
             Facility facility = FacilityRep.Find(facilityID);
+            if(!FacilityRep.IsAdmin(user, facility))
+            {
+                return new ForbidResult();
+            }
             Place place = PlaceRep.Find(placeID);
             Schedule schedule = ScheduleRep.Find(scheduleID);
             if (place.FacilityID != facilityID || schedule.PlaceID != placeID)
@@ -334,9 +338,14 @@ namespace CheckoutProj.Controllers
             }
         }
         [HttpGet("{facilityID}/report")]
-        public ActionResult GetPositiveCheckouts(int facilityID)
+        public ActionResult<List<Checkout>> GetPositiveCheckouts(int facilityID)
         {
+            User user = UserRep.FindByEmail(User.Identity.Name);
             Facility facility = FacilityRep.Find(facilityID);
+            if (!FacilityRep.IsAdmin(user, facility))
+            {
+                return new ForbidResult();
+            }
             var places = facility.Places;
             var checkouts = CheckoutRep.List;
             var positiveCheckouts = checkouts.Where(c => places.Contains(c.Place));
@@ -348,14 +357,14 @@ namespace CheckoutProj.Controllers
         public ActionResult ReviewCheckout(int checkoutID)
         {
             User user = UserRep.FindByEmail(User.Identity.Name);
-            Models.Checkout checkout = CheckoutRep.Find(checkoutID);
+            Checkout checkout = CheckoutRep.Find(checkoutID);
             Place place = PlaceRep.Find(checkout.PlaceID);
             Facility facility = FacilityRep.Find(place.FacilityID);
 
             if (FacilityRep.IsAdmin(user, facility))
             {
                 CheckoutRep.ReviewCheckout(checkoutID);
-                return Ok();
+                return Ok(checkout);
             }
             else
             {
