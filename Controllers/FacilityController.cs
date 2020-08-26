@@ -347,8 +347,8 @@ namespace CheckoutProj.Controllers
                 return new ForbidResult();
             }
             var places = facility.Places;
-            var checkouts = CheckoutRep.List;
-            var positiveCheckouts = checkouts.Where(c => places.Contains(c.Place));
+            var checkouts = CheckoutRep.List.Where(c => places.Contains(c.Place));
+            var positiveCheckouts = checkouts.Where(c => c.Result);
             var unreviewedCheckouts = positiveCheckouts.Where(c => !c.IsRevieved);
             return Ok(unreviewedCheckouts);
         }
